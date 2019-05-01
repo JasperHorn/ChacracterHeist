@@ -1,25 +1,17 @@
 
 import readchar
 import colorama
-import os
 
-def printPartial(text):
-    print(text, end = '', flush = True)
+import consoleUtils
 
-def clearScreen():
-    os.system('cls' if os.name=='nt' else 'clear')
-
-def setCursorPosition(x, y):
-    printPartial('\x1b[%d;%dH' % (x, y))
-
-clearScreen()
+consoleUtils.clearScreen()
 colorama.init()
 
 characterX = 1;
 characterY = 1;
 
-setCursorPosition(characterY, characterX)
-printPartial('@')
+consoleUtils.setCursorPosition(characterY, characterX)
+consoleUtils.printPartial('@')
 
 while True:
     input = readchar.readkey()
@@ -40,8 +32,8 @@ while True:
             characterY += 1
 
     if characterX != previousX or characterY != previousY:
-        setCursorPosition(previousY, previousX)
-        printPartial(' ')
-        setCursorPosition(characterY, characterX)
-        printPartial('@')
-        setCursorPosition(25, 70)
+        consoleUtils.setCursorPosition(previousY, previousX)
+        consoleUtils.printPartial(' ')
+        consoleUtils.setCursorPosition(characterY, characterX)
+        consoleUtils.printPartial('@')
+        consoleUtils.setCursorPosition(25, 70)
