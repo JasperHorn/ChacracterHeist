@@ -15,14 +15,33 @@ def setCursorPosition(x, y):
 clearScreen()
 colorama.init()
 
-printPartial("Your character: ")
+characterX = 1;
+characterY = 1;
+
+setCursorPosition(characterY, characterX)
+printPartial('@')
 
 while True:
     input = readchar.readkey()
-    setCursorPosition(1, 17)
+    previousX = characterX
+    previousY = characterY
 
-    if len(input) == 1:
-        printPartial(input)
-    else:
-        # Print as a list, so it doesn't get interpreted as ANSI code...
-        printPartial(list(input))
+    if input == '\x1b[D': # left arrow
+        if characterX > 1:
+            characterX -= 1
+    elif input == '\x1b[C': # right arrow
+        if characterX < 20:
+            characterX += 1
+    elif input == '\x1b[A': # up arrow
+        if characterY > 1:
+            characterY -= 1
+    elif input == '\x1b[B': # down arrow
+        if characterY < 20:
+            characterY += 1
+
+    if characterX != previousX or characterY != previousY:
+        setCursorPosition(previousY, previousX)
+        printPartial(' ')
+        setCursorPosition(characterY, characterX)
+        printPartial('@')
+        setCursorPosition(25, 70)
