@@ -1,11 +1,15 @@
 
 import readchar
 
+import sampleField
+
 from PlayerCharacter import PlayerCharacter
 from FieldVisualizer import FieldVisualizer
 
-character = PlayerCharacter(1, 1)
-visualizer = FieldVisualizer(character)
+field = sampleField.create()
+character = PlayerCharacter(field, 2, 2)
+
+visualizer = FieldVisualizer(field, character)
 
 character.subscribe(visualizer)
 

@@ -1,28 +1,29 @@
 
 class PlayerCharacter:
 
-    def __init__(self, x, y):
+    def __init__(self, field, x, y):
+        self.field = field
         self.x = x
         self.y = y
         self.observers = []
 
     def moveUp(self):
-        if self.y > 1:
+        if self.field.canMoveTo(self.x, self.y - 1):
             self.y -= 1
             self.notifyMovement(self.x, self.y + 1)
 
     def moveDown(self):
-        if self.y < 20:
+        if self.field.canMoveTo(self.x, self.y + 1):
             self.y += 1
             self.notifyMovement(self.x, self.y - 1)
 
     def moveLeft(self):
-        if self.x > 1:
+        if self.field.canMoveTo(self.x - 1, self.y):
             self.x -= 1
             self.notifyMovement(self.x + 1, self.y)
 
     def moveRight(self):
-        if self.x < 20:
+        if self.field.canMoveTo(self.x + 1, self.y):
             self.x += 1
             self.notifyMovement(self.x - 1, self.y)
 
