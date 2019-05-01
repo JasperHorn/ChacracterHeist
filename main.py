@@ -1,2 +1,6 @@
 
-print("Hello world!")
+import readchar
+
+while True:
+    bla = readchar.readkey()
+    print("Your character: " + bla)
