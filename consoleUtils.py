@@ -10,3 +10,7 @@ def setCursorPosition(x, y):
 
 def printPartial(text):
     print(text, end = '', flush = True)
+
+def printAtPosition(x, y, text):
+    setCursorPosition(x, y)
+    printPartial(text)

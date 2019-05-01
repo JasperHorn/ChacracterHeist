@@ -11,13 +11,10 @@ class MoneyDisplay(CharacterObserver):
         character.subscribe(self)
 
     def writeMoney(self, money):
-        consoleUtils.setCursorPosition(self.y, self.x)
-        consoleUtils.printPartial('$' + str(money))
+        consoleUtils.printAtPosition(self.y, self.x, '$' + str(money))
         consoleUtils.setCursorPosition(25, 70)
 
     def characterMoneyChanged(self, oldMoney, newMoney):
-        consoleUtils.setCursorPosition(self.y, self.x + 1)
-        for n in range(0, len(str(oldMoney))):
-            consoleUtils.printPartial(' ')
+        consoleUtils.printAtPosition(self.y, self.x + 1, ' ' * len(str(oldMoney)))
 
         self.writeMoney(newMoney)
