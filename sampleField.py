@@ -16,4 +16,21 @@ def create():
         field.addObject(0, y, Wall())
         field.addObject(width - 1, y, Wall())
 
+    # Starting room
+    for x in range(1, 8):
+        field.addObject(x, 8, Wall())
+    for y in range(1, 8):
+        if y != 5:
+            field.addObject(7, y, Wall())
+
+    # Middle wall
+    for y in range(1, height - 1):
+        if y != 15:
+            field.addObject(15, y, Wall())
+
+    # Top right room
+    for x in range(16, width - 1):
+        if x != width - 3:
+            field.addObject(x, 6, Wall())
+
     return field
