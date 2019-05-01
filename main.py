@@ -3,37 +3,33 @@ import readchar
 import colorama
 
 import consoleUtils
+from PlayerCharacter import PlayerCharacter
 
 consoleUtils.clearScreen()
 colorama.init()
 
-characterX = 1;
-characterY = 1;
+character = PlayerCharacter(1, 1)
 
-consoleUtils.setCursorPosition(characterY, characterX)
+consoleUtils.setCursorPosition(character.y, character.x)
 consoleUtils.printPartial('@')
 
 while True:
     input = readchar.readkey()
-    previousX = characterX
-    previousY = characterY
+    previousX = character.x
+    previousY = character.y
 
     if input == '\x1b[D': # left arrow
-        if characterX > 1:
-            characterX -= 1
+        character.moveLeft()
     elif input == '\x1b[C': # right arrow
-        if characterX < 20:
-            characterX += 1
+        character.moveRight()
     elif input == '\x1b[A': # up arrow
-        if characterY > 1:
-            characterY -= 1
+        character.moveUp()
     elif input == '\x1b[B': # down arrow
-        if characterY < 20:
-            characterY += 1
+        character.moveDown()
 
-    if characterX != previousX or characterY != previousY:
+    if character.x != previousX or character.y != previousY:
         consoleUtils.setCursorPosition(previousY, previousX)
         consoleUtils.printPartial(' ')
-        consoleUtils.setCursorPosition(characterY, characterX)
+        consoleUtils.setCursorPosition(character.y, character.x)
         consoleUtils.printPartial('@')
         consoleUtils.setCursorPosition(25, 70)
