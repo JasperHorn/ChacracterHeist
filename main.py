@@ -1,23 +1,16 @@
 
 import readchar
-import colorama
 
-import consoleUtils
 from PlayerCharacter import PlayerCharacter
-
-consoleUtils.clearScreen()
-colorama.init()
+from FieldVisualizer import FieldVisualizer
 
 character = PlayerCharacter(1, 1)
+visualizer = FieldVisualizer(character)
 
-consoleUtils.setCursorPosition(character.y, character.x)
-consoleUtils.printPartial('@')
-consoleUtils.setCursorPosition(25, 70)
+character.subscribe(visualizer)
 
 while True:
     input = readchar.readkey()
-    previousX = character.x
-    previousY = character.y
 
     if input == '\x1b[D': # left arrow
         character.moveLeft()
@@ -27,10 +20,3 @@ while True:
         character.moveUp()
     elif input == '\x1b[B': # down arrow
         character.moveDown()
-
-    if character.x != previousX or character.y != previousY:
-        consoleUtils.setCursorPosition(previousY, previousX)
-        consoleUtils.printPartial(' ')
-        consoleUtils.setCursorPosition(character.y, character.x)
-        consoleUtils.printPartial('@')
-        consoleUtils.setCursorPosition(25, 70)
