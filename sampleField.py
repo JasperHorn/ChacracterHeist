@@ -1,6 +1,6 @@
 
 from Game import Field
-from Game.Objects import Money, Wall
+from Game.Objects import Money, Wall, TargetTreasure
 
 width = 30
 height = 20
@@ -35,5 +35,7 @@ def create():
 
     for y in range(2, 5):
         field.addObject(19, y, Money(10))
+
+    field.addObject(17, 3, TargetTreasure())
 
     return field

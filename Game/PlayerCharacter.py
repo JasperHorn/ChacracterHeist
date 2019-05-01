@@ -7,6 +7,7 @@ class PlayerCharacter:
         self.y = y
         self.observers = []
         self.money = 0
+        self.hasTarget = False
 
     def moveUp(self):
         if self.field.canMoveTo(self.x, self.y - 1):
@@ -36,6 +37,9 @@ class PlayerCharacter:
         self.money += amount
 
         self.notifyMoneyChange(self.money - amount)
+
+    def setHasTarget(self, value):
+        self.hasTarget = value
 
     def subscribe(self, observer):
         self.observers.append(observer)
