@@ -1,7 +1,6 @@
 
-from Wall import Wall
-from Field import Field
-from Money import Money
+from Game import Field
+from Game.Objects import Money, Wall
 
 width = 30
 height = 20

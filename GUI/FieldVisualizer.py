@@ -3,8 +3,7 @@ import colorama
 
 import consoleUtils
 
-from Wall import Wall
-from Money import Money
+from Game.Objects import Wall, Money
 from CharacterObserver import CharacterObserver
 
 class FieldVisualizer(CharacterObserver):

@@ -1,5 +1,5 @@
 
-from Object import Object
+from .Object import Object
 
 class Money(Object):
     def __init__(self, amount):

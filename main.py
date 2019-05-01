@@ -3,9 +3,8 @@ import readchar
 
 import sampleField
 
-from PlayerCharacter import PlayerCharacter
-from FieldVisualizer import FieldVisualizer
-from MoneyDisplay import MoneyDisplay
+from Game import PlayerCharacter
+from GUI import FieldVisualizer, MoneyDisplay
 
 field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)

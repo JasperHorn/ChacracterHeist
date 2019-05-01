@@ -1,5 +1,5 @@
 
-from Object import Object
+from .Object import Object
 
 class Wall(Object):
     def isPassable(self):
