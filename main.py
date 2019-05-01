@@ -12,6 +12,7 @@ character = PlayerCharacter(1, 1)
 
 consoleUtils.setCursorPosition(character.y, character.x)
 consoleUtils.printPartial('@')
+consoleUtils.setCursorPosition(25, 70)
 
 while True:
     input = readchar.readkey()
