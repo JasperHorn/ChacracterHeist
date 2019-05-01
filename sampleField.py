@@ -1,6 +1,7 @@
 
 from Wall import Wall
 from Field import Field
+from Money import Money
 
 width = 30
 height = 20
@@ -32,5 +33,8 @@ def create():
     for x in range(16, width - 1):
         if x != width - 3:
             field.addObject(x, 6, Wall())
+
+    for y in range(2, 5):
+        field.addObject(19, y, Money(10))
 
     return field

@@ -5,11 +5,13 @@ import sampleField
 
 from PlayerCharacter import PlayerCharacter
 from FieldVisualizer import FieldVisualizer
+from MoneyDisplay import MoneyDisplay
 
 field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)
 
 visualizer = FieldVisualizer(field, character)
+moneyDisplay = MoneyDisplay(character, 35, 3)
 
 character.subscribe(visualizer)
 
