@@ -22,13 +22,13 @@ class Field:
         del self.objects[object]
         self.squares[x][y] = None
 
-    def canMoveTo(self, x, y):
+    def canMoveTo(self, x, y, character):
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
             return False
         elif self.squares[x][y] is None:
             return True
         else:
-            return self.squares[x][y].isPassable()
+            return self.squares[x][y].isPassable(character)
 
     def moveTo(self, character, x, y):
         if not (self.squares[x][y] is None):

@@ -14,7 +14,7 @@ moneyDisplay = MoneyDisplay(character, 35, 3)
 
 character.subscribe(visualizer)
 
-while not character.hasTarget:
+while not character.exited:
     input = readchar.readkey()
 
     if input == '\x1b[D': # left arrow
@@ -27,4 +27,4 @@ while not character.hasTarget:
         character.moveDown()
 
 print()
-print('You acquired the target and won the game!')
+print('You stole the target and won the game!')

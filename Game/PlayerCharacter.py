@@ -8,27 +8,28 @@ class PlayerCharacter:
         self.observers = []
         self.money = 0
         self.hasTarget = False
+        self.exited = False
 
     def moveUp(self):
-        if self.field.canMoveTo(self.x, self.y - 1):
+        if self.field.canMoveTo(self.x, self.y - 1, self):
             self.y -= 1
             self.field.moveTo(self, self.x, self.y)
             self.notifyMovement(self.x, self.y + 1)
 
     def moveDown(self):
-        if self.field.canMoveTo(self.x, self.y + 1):
+        if self.field.canMoveTo(self.x, self.y + 1, self):
             self.y += 1
             self.field.moveTo(self, self.x, self.y)
             self.notifyMovement(self.x, self.y - 1)
 
     def moveLeft(self):
-        if self.field.canMoveTo(self.x - 1, self.y):
+        if self.field.canMoveTo(self.x - 1, self.y, self):
             self.x -= 1
             self.field.moveTo(self, self.x, self.y)
             self.notifyMovement(self.x + 1, self.y)
 
     def moveRight(self):
-        if self.field.canMoveTo(self.x + 1, self.y):
+        if self.field.canMoveTo(self.x + 1, self.y, self):
             self.x += 1
             self.field.moveTo(self, self.x, self.y)
             self.notifyMovement(self.x - 1, self.y)

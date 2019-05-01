@@ -2,8 +2,8 @@
 class Object:
     def setField(self, field):
         self.field = field
-    
-    def isPassable(self):
+
+    def isPassable(self, player):
         return True
 
     def stepOn(self, player):

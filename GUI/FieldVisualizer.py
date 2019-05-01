@@ -3,7 +3,7 @@ import colorama
 
 import consoleUtils
 
-from Game.Objects import Wall, Money, TargetTreasure
+from Game.Objects import Wall, Money, TargetTreasure, Exit
 from CharacterObserver import CharacterObserver
 
 class FieldVisualizer(CharacterObserver):
@@ -23,6 +23,8 @@ class FieldVisualizer(CharacterObserver):
                     consoleUtils.printAtPosition(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '$')
                 elif isinstance(object, TargetTreasure):
                     consoleUtils.printAtPosition(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '*')
+                elif isinstance(object, Exit):
+                    consoleUtils.printAtPosition(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '↓')
 
         consoleUtils.printAtPosition(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@')
 
