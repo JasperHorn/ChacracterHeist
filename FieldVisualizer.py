@@ -9,7 +9,6 @@ from CharacterObserver import CharacterObserver
 
 class FieldVisualizer(CharacterObserver):
 
-    idleCursor = (25, 70)
     offset = (3, 2)
 
     def __init__(self, field, character):
@@ -26,13 +25,6 @@ class FieldVisualizer(CharacterObserver):
 
         consoleUtils.printAtPosition(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@')
 
-        FieldVisualizer.resetCursor()
-
-    def resetCursor():
-        consoleUtils.setCursorPosition(FieldVisualizer.idleCursor[0], FieldVisualizer.idleCursor[1])
-
     def characterMoved(self, oldX, oldY, newX, newY):
         consoleUtils.printAtPosition(FieldVisualizer.offset[1] + oldY, FieldVisualizer.offset[0] + oldX, ' ')
         consoleUtils.printAtPosition(FieldVisualizer.offset[1] + newY, FieldVisualizer.offset[0] + newX, '@')
-
-        FieldVisualizer.resetCursor()

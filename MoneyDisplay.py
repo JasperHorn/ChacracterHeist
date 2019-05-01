@@ -12,7 +12,6 @@ class MoneyDisplay(CharacterObserver):
 
     def writeMoney(self, money):
         consoleUtils.printAtPosition(self.y, self.x, '$' + str(money))
-        consoleUtils.setCursorPosition(25, 70)
 
     def characterMoneyChanged(self, oldMoney, newMoney):
         consoleUtils.printAtPosition(self.y, self.x + 1, ' ' * len(str(oldMoney)))
