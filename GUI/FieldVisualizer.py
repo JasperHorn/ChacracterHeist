@@ -5,6 +5,7 @@ import consoleUtils
 
 from Game.Objects import Wall, Money, TargetTreasure, Exit
 from CharacterObserver import CharacterObserver
+from colorama import Style, Fore, Back
 
 class FieldVisualizer(CharacterObserver):
 
@@ -18,16 +19,16 @@ class FieldVisualizer(CharacterObserver):
             for y in range(0, field.height):
                 object = field.getObjectAtLocation(x, y)
                 if isinstance(object, Wall):
-                    consoleUtils.printAtPosition(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, 'X')
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, 'X', Fore.WHITE + Back.BLUE)
                 elif isinstance(object, Money):
-                    consoleUtils.printAtPosition(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '$')
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '$', Fore.YELLOW + Style.BRIGHT)
                 elif isinstance(object, TargetTreasure):
-                    consoleUtils.printAtPosition(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '*')
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '*', Fore.GREEN + Style.BRIGHT)
                 elif isinstance(object, Exit):
-                    consoleUtils.printAtPosition(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '↓')
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '↓', Fore.CYAN)
 
-        consoleUtils.printAtPosition(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@')
+        consoleUtils.specialPrint(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@', Fore.CYAN)
 
     def characterMoved(self, oldX, oldY, newX, newY):
-        consoleUtils.printAtPosition(FieldVisualizer.offset[1] + oldY, FieldVisualizer.offset[0] + oldX, ' ')
-        consoleUtils.printAtPosition(FieldVisualizer.offset[1] + newY, FieldVisualizer.offset[0] + newX, '@')
+        consoleUtils.specialPrint(FieldVisualizer.offset[1] + oldY, FieldVisualizer.offset[0] + oldX, ' ')
+        consoleUtils.specialPrint(FieldVisualizer.offset[1] + newY, FieldVisualizer.offset[0] + newX, '@', Fore.CYAN)

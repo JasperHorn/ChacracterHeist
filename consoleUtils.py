@@ -1,6 +1,8 @@
 
 import os
 
+from colorama import Style
+
 idleCursor = (25, 70)
 
 def clearScreen():
@@ -15,7 +17,11 @@ def printPartial(text):
 def resetCursor():
     setCursorPosition(idleCursor[0], idleCursor[1])
 
-def printAtPosition(x, y, text):
+def specialPrint(x, y, text, styling = None):
     setCursorPosition(x, y)
+    if not styling is None:
+        printPartial(styling)
     printPartial(text)
+    if not styling is None:
+        printPartial(Style.RESET_ALL)
     resetCursor()

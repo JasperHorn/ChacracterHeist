@@ -2,6 +2,7 @@
 import consoleUtils
 
 from CharacterObserver import CharacterObserver
+from colorama import Style, Fore
 
 class MoneyDisplay(CharacterObserver):
     def __init__(self, character, x, y):
@@ -11,9 +12,9 @@ class MoneyDisplay(CharacterObserver):
         character.subscribe(self)
 
     def writeMoney(self, money):
-        consoleUtils.printAtPosition(self.y, self.x, '$' + str(money))
+        consoleUtils.specialPrint(self.y, self.x, '$' + str(money), Fore.YELLOW + Style.BRIGHT)
 
     def characterMoneyChanged(self, oldMoney, newMoney):
-        consoleUtils.printAtPosition(self.y, self.x + 1, ' ' * len(str(oldMoney)))
+        consoleUtils.specialPrint(self.y, self.x + 1, ' ' * len(str(oldMoney)))
 
         self.writeMoney(newMoney)
