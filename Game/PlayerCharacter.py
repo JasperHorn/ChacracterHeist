@@ -42,6 +42,9 @@ class PlayerCharacter:
     def setHasTarget(self, value):
         self.hasTarget = value
 
+        if value:
+            self.notifyGotTarget()
+
     def subscribe(self, observer):
         self.observers.append(observer)
 
@@ -52,3 +55,7 @@ class PlayerCharacter:
     def notifyMoneyChange(self, oldMoney):
         for observer in self.observers:
             observer.characterMoneyChanged(oldMoney, self.money)
+
+    def notifyGotTarget(self):
+        for observer in self.observers:
+            observer.characterGotTarget()

@@ -4,13 +4,14 @@ import readchar
 import sampleField
 
 from Game import PlayerCharacter
-from GUI import FieldVisualizer, MoneyDisplay
+from GUI import FieldVisualizer, MoneyDisplay, TargetDisplay
 
 field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)
 
 visualizer = FieldVisualizer(field, character)
 moneyDisplay = MoneyDisplay(character, 35, 3)
+moneyDisplay = TargetDisplay(character, 35, 5)
 
 character.subscribe(visualizer)
 

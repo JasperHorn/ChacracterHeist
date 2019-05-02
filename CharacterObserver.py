@@ -5,3 +5,6 @@ class CharacterObserver:
 
     def characterMoved(self, oldX, oldY, newX, newY):
         pass
+
+    def characterGotTarget(self):
+        pass
