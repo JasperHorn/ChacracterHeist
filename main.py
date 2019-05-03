@@ -26,6 +26,12 @@ while not character.exited:
         character.moveUp()
     elif input == '\x1b[B': # down arrow
         character.moveDown()
+    elif input == 'q':
+        break;
 
 print()
-print('You stole the target and won the game!')
+
+if character.exited:
+    print('You stole the target and won the game!')
+else:
+    print('You exited the game without winning.')
