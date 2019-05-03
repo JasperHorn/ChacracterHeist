@@ -4,7 +4,8 @@ import readchar
 import sampleField
 
 from Game import PlayerCharacter
-from GUI import FieldVisualizer, MoneyDisplay, TargetDisplay
+from GUI import FieldVisualizer
+from GUI.HUD import MoneyDisplay, TargetDisplay
 
 field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)
