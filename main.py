@@ -5,14 +5,13 @@ import sampleField
 
 from Game import PlayerCharacter
 from GUI import FieldVisualizer
-from GUI.HUD import MoneyDisplay, TargetDisplay
+from GUI.HUD import HUD
 
 field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)
 
 visualizer = FieldVisualizer(field, character)
-moneyDisplay = MoneyDisplay(character, 35, 3)
-moneyDisplay = TargetDisplay(character, 35, 5)
+hud = HUD(character, 34, 2)
 
 character.subscribe(visualizer)
 
