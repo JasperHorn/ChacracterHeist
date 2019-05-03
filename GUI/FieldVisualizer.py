@@ -14,9 +14,6 @@ class FieldVisualizer(CharacterObserver):
     def __init__(self, field, character):
         self.field = field
 
-        consoleUtils.clearScreen()
-        colorama.init()
-
         for x in range(0, field.width):
             for y in range(0, field.height):
                 object = field.getObjectAtLocation(x, y)

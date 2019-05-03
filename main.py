@@ -1,11 +1,21 @@
 
 import readchar
+import colorama
 
 import sampleField
+import consoleUtils
 
 from Game import PlayerCharacter
-from GUI import FieldVisualizer
+from GUI import FieldVisualizer, drawIntroScreen
 from GUI.HUD import HUD
+
+colorama.init()
+consoleUtils.clearScreen()
+
+drawIntroScreen()
+readchar.readkey();
+
+consoleUtils.clearScreen()
 
 field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)
@@ -32,6 +42,6 @@ while not character.exited:
 print()
 
 if character.exited:
-    print('You stole the target and won the game!')
+    print('You stole the treasure and won the game!')
 else:
     print('You exited the game without winning.')
