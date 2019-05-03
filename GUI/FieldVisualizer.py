@@ -12,6 +12,8 @@ class FieldVisualizer(CharacterObserver):
     offset = (3, 2)
 
     def __init__(self, field, character):
+        self.field = field
+
         consoleUtils.clearScreen()
         colorama.init()
 
@@ -27,10 +29,16 @@ class FieldVisualizer(CharacterObserver):
                 elif isinstance(object, TargetTreasure):
                     consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '*', Fore.GREEN + Style.BRIGHT + Back.BLACK)
                 elif isinstance(object, Exit):
-                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '↓', Fore.CYAN + Back.BLACK)
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, 'O', Fore.CYAN + Back.BLUE)
 
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@', Fore.CYAN + Back.BLACK)
 
     def characterMoved(self, oldX, oldY, newX, newY):
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + oldY, FieldVisualizer.offset[0] + oldX, ' ', Back.BLACK)
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + newY, FieldVisualizer.offset[0] + newX, '@', Fore.CYAN + Back.BLACK)
+
+    def characterGotTarget(self):
+        for x in range(0, self.field.width):
+            for y in range(0, self.field.height):
+                if isinstance(self.field.getObjectAtLocation(x, y), Exit):
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, 'O', Fore.GREEN + Style.BRIGHT + Back.BLACK)
