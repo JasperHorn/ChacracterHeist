@@ -18,17 +18,19 @@ class FieldVisualizer(CharacterObserver):
         for x in range(0, field.width):
             for y in range(0, field.height):
                 object = field.getObjectAtLocation(x, y)
-                if isinstance(object, Wall):
+                if object is None:
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, ' ', Back.BLACK)
+                elif isinstance(object, Wall):
                     consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, 'X', Fore.WHITE + Back.BLUE)
                 elif isinstance(object, Money):
-                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '$', Fore.YELLOW + Style.BRIGHT)
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '$', Fore.YELLOW + Style.BRIGHT + Back.BLACK)
                 elif isinstance(object, TargetTreasure):
-                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '*', Fore.GREEN + Style.BRIGHT)
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '*', Fore.GREEN + Style.BRIGHT + Back.BLACK)
                 elif isinstance(object, Exit):
-                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '↓', Fore.CYAN)
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '↓', Fore.CYAN + Back.BLACK)
 
-        consoleUtils.specialPrint(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@', Fore.CYAN)
+        consoleUtils.specialPrint(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@', Fore.CYAN + Back.BLACK)
 
     def characterMoved(self, oldX, oldY, newX, newY):
-        consoleUtils.specialPrint(FieldVisualizer.offset[1] + oldY, FieldVisualizer.offset[0] + oldX, ' ')
-        consoleUtils.specialPrint(FieldVisualizer.offset[1] + newY, FieldVisualizer.offset[0] + newX, '@', Fore.CYAN)
+        consoleUtils.specialPrint(FieldVisualizer.offset[1] + oldY, FieldVisualizer.offset[0] + oldX, ' ', Back.BLACK)
+        consoleUtils.specialPrint(FieldVisualizer.offset[1] + newY, FieldVisualizer.offset[0] + newX, '@', Fore.CYAN + Back.BLACK)
