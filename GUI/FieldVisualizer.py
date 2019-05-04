@@ -6,7 +6,7 @@ import consoleUtils
 from Game.Objects import Wall, Money, TargetTreasure, Exit, Door
 from CharacterObserver import CharacterObserver
 from colorama import Style, Fore, Back
-from .LooksRepository import LooksRepository
+from .defaultLook import defaultLook
 
 class FieldVisualizer(CharacterObserver):
 
@@ -14,7 +14,7 @@ class FieldVisualizer(CharacterObserver):
 
     def __init__(self, field, character):
         self.field = field
-        self.looks = LooksRepository()
+        self.looks = defaultLook
 
         for x in range(0, field.width):
             for y in range(0, field.height):

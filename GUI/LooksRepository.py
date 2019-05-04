@@ -1,23 +1,14 @@
 
-from colorama import Style, Fore, Back
-from Game.Objects import Wall, Money, TargetTreasure, Exit, Door
+from colorama import Back
 
 class LooksRepository:
     def __init__(self):
         self.symbols = {}
         self.styles = {}
 
-        self.symbols[Wall] = 'X'
-        self.symbols[Money] = '$'
-        self.symbols[TargetTreasure] = '*'
-        self.symbols[Exit] = 'O'
-        self.symbols[Door] = 'Z'
-
-        self.styles[Wall] = Fore.WHITE + Back.BLUE
-        self.styles[Money] = Fore.YELLOW + Style.BRIGHT + Back.BLACK
-        self.styles[TargetTreasure] = Fore.GREEN + Style.BRIGHT + Back.BLACK
-        self.styles[Exit] = Fore.CYAN + Back.BLUE
-        self.styles[Door] = Fore.GREEN + Back.BLUE
+    def defineObjectLook(self, objectType, symbol, style):
+        self.symbols[objectType] = symbol
+        self.styles[objectType] = style
 
     def getObjectSymbol(self, object):
         if type(object) in self.symbols:
