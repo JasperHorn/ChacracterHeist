@@ -35,20 +35,6 @@ class FieldVisualizer(CharacterObserver):
     def drawObjectAtLocation(self, x, y):
         object = self.field.getObjectAtLocation(x, y)
         symbol = self.looks.getObjectSymbol(object)
-
-        if object is None:
-            style = Back.BLACK
-        elif isinstance(object, Wall):
-            style = Fore.WHITE + Back.BLUE
-        elif isinstance(object, Money):
-            style = Fore.YELLOW + Style.BRIGHT + Back.BLACK
-        elif isinstance(object, TargetTreasure):
-            style = Fore.GREEN + Style.BRIGHT + Back.BLACK
-        elif isinstance(object, Exit):
-            style = Fore.CYAN + Back.BLUE
-        elif isinstance(object, Door):
-            style = Fore.GREEN + Back.BLUE
-        else:
-            style = None
+        style = self.looks.getObjectStyle(object)
 
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, symbol, style)
