@@ -3,7 +3,7 @@ import colorama
 
 import consoleUtils
 
-from Game.Objects import Wall, Money, TargetTreasure, Exit
+from Game.Objects import Wall, Money, TargetTreasure, Exit, Door
 from CharacterObserver import CharacterObserver
 from colorama import Style, Fore, Back
 
@@ -27,6 +27,8 @@ class FieldVisualizer(CharacterObserver):
                     consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, '*', Fore.GREEN + Style.BRIGHT + Back.BLACK)
                 elif isinstance(object, Exit):
                     consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, 'O', Fore.CYAN + Back.BLUE)
+                elif isinstance(object, Door):
+                    consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, 'Z', Fore.GREEN + Back.BLUE)
 
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@', Fore.CYAN + Back.BLACK)
 
