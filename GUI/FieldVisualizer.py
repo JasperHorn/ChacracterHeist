@@ -3,18 +3,17 @@ import colorama
 
 import consoleUtils
 
-from Game.Objects import Wall, Money, TargetTreasure, Exit, Door
+from Game.Objects import Exit
 from CharacterObserver import CharacterObserver
 from colorama import Style, Fore, Back
-from .defaultLook import defaultLook
 
 class FieldVisualizer(CharacterObserver):
 
     offset = (3, 2)
 
-    def __init__(self, field, character):
+    def __init__(self, look, field, character):
         self.field = field
-        self.looks = defaultLook
+        self.look = look
 
         for x in range(0, field.width):
             for y in range(0, field.height):
@@ -34,7 +33,7 @@ class FieldVisualizer(CharacterObserver):
 
     def drawObjectAtLocation(self, x, y):
         object = self.field.getObjectAtLocation(x, y)
-        symbol = self.looks.getObjectSymbol(object)
-        style = self.looks.getObjectStyle(object)
+        symbol = self.look.getObjectSymbol(object)
+        style = self.look.getObjectStyle(object)
 
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + y, FieldVisualizer.offset[0] + x, symbol, style)
