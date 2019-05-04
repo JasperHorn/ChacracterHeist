@@ -1,10 +1,15 @@
 
+import random
+
 from Game import Field
 from Game.Objects import Money, Wall, TargetTreasure, Exit, Door, FogOfWar
 from Game.Objects import VaultDoor
 
 width = 30
 height = 20
+
+def randomCode(length):
+    return random.sample(range(0, 10), length)
 
 def create():
     field = Field(width, height)
@@ -44,7 +49,7 @@ def create():
     # Vault
     for y in range(1, 6):
         if y == 3:
-            field.addObject(21, y, VaultDoor([1, 2, 3, 4]))
+            field.addObject(21, y, VaultDoor(randomCode(4)))
         else:
             field.addObject(21, y, Wall())
 
