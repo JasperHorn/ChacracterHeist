@@ -8,3 +8,6 @@ class Object:
 
     def stepOn(self, player):
         pass
+
+    def getVisibilityPriority(self):
+        return 0

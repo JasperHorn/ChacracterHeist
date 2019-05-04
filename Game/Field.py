@@ -36,7 +36,5 @@ class Field:
 
     def getVisibleObjectAtLocation(self, x, y):
         square = self.squares[x][y]
-        if not square:
-            return None
-        else:
-            return square[0]
+        return max(square, key = lambda obj: obj.getVisibilityPriority(),
+                   default = None);
