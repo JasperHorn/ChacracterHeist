@@ -21,7 +21,7 @@ class FieldVisualizer(CharacterObserver):
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + character.y, FieldVisualizer.offset[0] + character.x, '@', Fore.CYAN + Back.BLACK)
 
     def characterMoved(self, oldX, oldY, newX, newY):
-        consoleUtils.specialPrint(FieldVisualizer.offset[1] + oldY, FieldVisualizer.offset[0] + oldX, ' ', Back.BLACK)
+        self.drawObjectAtLocation(oldX, oldY)
         consoleUtils.specialPrint(FieldVisualizer.offset[1] + newY, FieldVisualizer.offset[0] + newX, '@', Fore.CYAN + Back.BLACK)
 
     def characterGotTarget(self):
