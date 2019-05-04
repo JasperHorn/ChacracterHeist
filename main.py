@@ -38,6 +38,26 @@ while not character.exited:
         character.actUp()
     elif input == '\x1b[B': # down arrow
         character.actDown()
+    elif input == '0':
+        character.crack(0)
+    elif input == '1':
+        character.crack(1)
+    elif input == '2':
+        character.crack(2)
+    elif input == '3':
+        character.crack(3)
+    elif input == '4':
+        character.crack(4)
+    elif input == '5':
+        character.crack(5)
+    elif input == '6':
+        character.crack(6)
+    elif input == '7':
+        character.crack(7)
+    elif input == '8':
+        character.crack(8)
+    elif input == '9':
+        character.crack(9)
     elif input == 'q':
         break;
 
