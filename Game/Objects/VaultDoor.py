@@ -1,9 +1,9 @@
 
-from .Door import Door
+from .Object import Object
+from .OpenedVaultDoor import OpenedVaultDoor
 
-class VaultDoor(Door):
+class VaultDoor(Object):
     def __init__(self, code):
-        self.open = False
         self.code = code
         self.codeCracked = [False] * len(code)
         self.observers = []
@@ -15,13 +15,13 @@ class VaultDoor(Door):
         self.observers.remove(observer)
 
     def canBeInteractedWith(self, character):
-        return not self.open
+        return True
 
     def interact(self, character):
         character.startCrackingVaultDoor(self)
 
     def isPassable(self, character):
-        return self.open
+        return False
 
     def getCodeLength(self):
         return len(self.code)
@@ -42,6 +42,7 @@ class VaultDoor(Door):
                 if all(self.codeCracked):
                     self.open = True
                     character.stopCrackingVaultDoor()
+                    self.field.replaceObject(self, OpenedVaultDoor());
 
                 return
 

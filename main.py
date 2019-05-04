@@ -60,6 +60,8 @@ while not character.exited:
         character.crack(9)
     elif input == 'q':
         break;
+    elif input == 'a':
+        field.getVisibleObjectAtLocation(character.x, character.y, True)
 
 print()
 

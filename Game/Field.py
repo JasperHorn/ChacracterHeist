@@ -30,6 +30,12 @@ class Field:
         self.squares[x][y].remove(object)
         self.notifyPositionChanged(x, y)
 
+    def replaceObject(self, oldObject, newObject):
+        x, y = self.objects[oldObject]
+        del self.objects[oldObject]
+        self.squares[x][y].remove(oldObject)
+        self.addObject(x, y, newObject)
+
     def canMoveTo(self, x, y, character):
         if not self.inBounds(x, y):
             return False
@@ -58,8 +64,10 @@ class Field:
         for object in self.squares[x][y]:
             object.interact(character)
 
-    def getVisibleObjectAtLocation(self, x, y):
+    def getVisibleObjectAtLocation(self, x, y, print = False):
         square = self.squares[x][y]
+        if print:
+            consoleUtils.specialPrint(25, 1, square)
         return max(square, key = lambda obj: obj.getVisibilityPriority(),
                    default = None);
 
