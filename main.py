@@ -6,7 +6,7 @@ import sampleField
 import consoleUtils
 
 from Game import PlayerCharacter
-from GUI import FieldVisualizer, drawIntroScreen
+from GUI import FieldVisualizer, VaultCracker, drawIntroScreen
 from GUI import defaultLook, initDefaultLookMutators
 from GUI.HUD import HUD
 
@@ -25,6 +25,7 @@ consoleUtils.clearScreen()
 visualizer = FieldVisualizer(defaultLook, field, character)
 initDefaultLookMutators(visualizer, character)
 hud = HUD(character, 34, 2)
+vaultCracker = VaultCracker(character, 47, 2)
 
 while not character.exited:
     input = readchar.readkey()

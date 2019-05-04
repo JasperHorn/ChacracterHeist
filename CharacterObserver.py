@@ -8,3 +8,6 @@ class CharacterObserver:
 
     def characterGotTarget(self):
         pass
+
+    def characterStartedCracking(self, vaultDoor):
+        pass

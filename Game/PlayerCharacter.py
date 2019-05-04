@@ -11,6 +11,7 @@ class PlayerCharacter(Object):
         self.money = 0
         self.hasTarget = False
         self.exited = False
+        self.crackingVaultDoor = None
 
         self.field.addObject(x, y, self)
 
@@ -36,9 +37,8 @@ class PlayerCharacter(Object):
         if self.field.canMoveTo(x, y, self):
             self.field.moveTo(self, x, y)
             self.notifyMovement(fromX, fromY)
-        elif self.field.canBeInteractedWith(x, y):
-            self.field.interact(x, y)
-
+        elif self.field.canBeInteractedWith(x, y, self):
+            self.field.interact(x, y, self)
 
     def addMoney(self, amount):
         self.money += amount
@@ -50,6 +50,10 @@ class PlayerCharacter(Object):
 
         if value:
             self.notifyGotTarget()
+
+    def startCrackingVaultDoor(self, vaultDoor):
+        self.crackingVaultDoor = vaultDoor
+        self.notifyStartCrackingVaultDoor()
 
     def subscribe(self, observer):
         self.observers.append(observer)
@@ -65,3 +69,7 @@ class PlayerCharacter(Object):
     def notifyGotTarget(self):
         for observer in self.observers:
             observer.characterGotTarget()
+
+    def notifyStartCrackingVaultDoor(self):
+        for observer in self.observers:
+            observer.characterStartedCracking(self.crackingVaultDoor)

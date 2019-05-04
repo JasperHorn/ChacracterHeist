@@ -48,15 +48,15 @@ class Field:
         for object in self.squares[x][y]:
             object.stepOn(character)
 
-    def canBeInteractedWith(self, x, y):
+    def canBeInteractedWith(self, x, y, character):
         if not self.inBounds(x, y):
             return False
         else:
-            return any(obj.canBeInteractedWith() for obj in self.squares[x][y])
+            return any(obj.canBeInteractedWith(character) for obj in self.squares[x][y])
 
-    def interact(self, x, y):
+    def interact(self, x, y, character):
         for object in self.squares[x][y]:
-            object.interact()
+            object.interact(character)
 
     def getVisibleObjectAtLocation(self, x, y):
         square = self.squares[x][y]
