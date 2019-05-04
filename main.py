@@ -16,10 +16,11 @@ consoleUtils.clearScreen()
 drawIntroScreen()
 readchar.readkey();
 
-consoleUtils.clearScreen()
-
 field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)
+field.spreadViewingFromPoint(character.x, character.y)
+
+consoleUtils.clearScreen()
 
 visualizer = FieldVisualizer(defaultLook, field, character)
 initDefaultLookMutators(visualizer, character)
