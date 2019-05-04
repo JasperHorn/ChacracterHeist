@@ -6,6 +6,13 @@ class VaultDoor(Door):
         self.open = False
         self.code = code
         self.codeCracked = [False] * len(code)
+        self.observers = []
+
+    def subscribe(self, observer):
+        self.observers.append(observer)
+
+    def unsubscribe(self, observer):
+        self.observers.remove(observer)
 
     def canBeInteractedWith(self, character):
         return not self.open
@@ -30,8 +37,14 @@ class VaultDoor(Door):
             if (not self.codeCracked[n]) and self.code[n] == number:
                 self.codeCracked[n] = True
 
+                self.notifyCrackedStatusChanged()
+
                 if all(self.codeCracked):
                     self.open = True
                     character.stopCrackingVaultDoor()
-                
+
                 return
+
+    def notifyCrackedStatusChanged(self):
+        for observer in self.observers:
+            observer.vaultDoorCrackedStatusChanged()

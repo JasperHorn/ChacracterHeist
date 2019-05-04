@@ -2,9 +2,10 @@
 import consoleUtils
 
 from CharacterObserver import CharacterObserver
+from VaultDoorObserver import VaultDoorObserver
 from colorama import Fore, Back, Style
 
-class VaultCracker(CharacterObserver):
+class VaultCracker(CharacterObserver, VaultDoorObserver):
     width = 16
     height = 9
 
@@ -15,6 +16,7 @@ class VaultCracker(CharacterObserver):
 
     def characterStartedCracking(self, vaultDoor):
         self.vaultDoor = vaultDoor
+        vaultDoor.subscribe(self)
 
         consoleUtils.specialPrint(self.y, self.x, ' ' * self.width, Back.RED)
         for y in range(1, self.height - 1):
@@ -26,6 +28,9 @@ class VaultCracker(CharacterObserver):
         consoleUtils.specialPrint(self.y + 4, self.x + 2, 'Press digits', Fore.GREEN)
         self.printCrackStatus()
 
+    def vaultDoorCrackedStatusChanged(self):
+        self.printCrackStatus()
+
     def printCrackStatus(self):
         for n in range(0, self.vaultDoor.getCodeLength()):
             if self.vaultDoor.isCodeDigitCracked(n):
@@ -34,5 +39,6 @@ class VaultCracker(CharacterObserver):
                 consoleUtils.specialPrint(self.y + 6, self.x + 2 + n, '?', Fore.RED + Style.BRIGHT)
 
     def characterStoppedCracking(self):
+        self.vaultDoor.unsubscribe(self)
         for dy in range(0, self.height):
             consoleUtils.specialPrint(self.y + dy, self.x, ' ' * self.width)
