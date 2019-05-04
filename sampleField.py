@@ -1,6 +1,6 @@
 
 from Game import Field
-from Game.Objects import Money, Wall, TargetTreasure, Exit, Door
+from Game.Objects import Money, Wall, TargetTreasure, Exit, Door, FogOfWar
 
 width = 30
 height = 20
@@ -44,5 +44,10 @@ def create():
         field.addObject(19, y, Money(10))
 
     field.addObject(17, 3, TargetTreasure())
+
+    # Fog of war
+    for x in range(1, width - 1):
+        for y in range(1, height - 1):
+            field.addObject(x, y, FogOfWar())
 
     return field
