@@ -30,13 +30,13 @@ while not character.exited:
     input = readchar.readkey()
 
     if input == '\x1b[D': # left arrow
-        character.moveLeft()
+        character.actLeft()
     elif input == '\x1b[C': # right arrow
-        character.moveRight()
+        character.actRight()
     elif input == '\x1b[A': # up arrow
-        character.moveUp()
+        character.actUp()
     elif input == '\x1b[B': # down arrow
-        character.moveDown()
+        character.actDown()
     elif input == 'q':
         break;
 

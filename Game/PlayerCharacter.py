@@ -20,25 +20,25 @@ class PlayerCharacter(Object):
     def isTransparent(self):
         return True
 
-    def moveUp(self):
-        if self.field.canMoveTo(self.x, self.y - 1, self):
-            self.field.moveTo(self, self.x, self.y - 1)
-            self.notifyMovement(self.x, self.y + 1)
+    def actUp(self):
+        self.act(self.x, self.y, self.x, self.y - 1)
 
-    def moveDown(self):
-        if self.field.canMoveTo(self.x, self.y + 1, self):
-            self.field.moveTo(self, self.x, self.y + 1)
-            self.notifyMovement(self.x, self.y - 1)
+    def actDown(self):
+        self.act(self.x, self.y, self.x, self.y + 1)
 
-    def moveLeft(self):
-        if self.field.canMoveTo(self.x - 1, self.y, self):
-            self.field.moveTo(self, self.x - 1, self.y)
-            self.notifyMovement(self.x + 1, self.y)
+    def actLeft(self):
+        self.act(self.x, self.y, self.x - 1, self.y)
 
-    def moveRight(self):
-        if self.field.canMoveTo(self.x + 1, self.y, self):
-            self.field.moveTo(self, self.x + 1, self.y)
-            self.notifyMovement(self.x - 1, self.y)
+    def actRight(self):
+        self.act(self.x, self.y, self.x + 1, self.y)
+
+    def act(self, fromX, fromY, x, y):
+        if self.field.canMoveTo(x, y, self):
+            self.field.moveTo(self, x, y)
+            self.notifyMovement(fromX, fromY)
+        elif self.field.canBeInteractedWith(x, y):
+            self.field.interact(x, y)
+
 
     def addMoney(self, amount):
         self.money += amount

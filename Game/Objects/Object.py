@@ -17,3 +17,9 @@ class Object:
 
     def isTransparent(self):
         return False
+
+    def canBeInteractedWith(self):
+        return False
+
+    def interact(self):
+        pass

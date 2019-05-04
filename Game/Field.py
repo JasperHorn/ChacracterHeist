@@ -48,6 +48,16 @@ class Field:
         for object in self.squares[x][y]:
             object.stepOn(character)
 
+    def canBeInteractedWith(self, x, y):
+        if not self.inBounds(x, y):
+            return False
+        else:
+            return any(obj.canBeInteractedWith() for obj in self.squares[x][y])
+
+    def interact(self, x, y):
+        for object in self.squares[x][y]:
+            object.interact()
+
     def getVisibleObjectAtLocation(self, x, y):
         square = self.squares[x][y]
         return max(square, key = lambda obj: obj.getVisibilityPriority(),
