@@ -6,7 +6,8 @@ import sampleField
 import consoleUtils
 
 from Game import PlayerCharacter
-from GUI import FieldVisualizer, drawIntroScreen, defaultLook
+from GUI import FieldVisualizer, drawIntroScreen
+from GUI import defaultLook, initDefaultLookMutators
 from GUI.HUD import HUD
 
 colorama.init()
@@ -21,6 +22,7 @@ field = sampleField.create()
 character = PlayerCharacter(field, 2, 2)
 
 visualizer = FieldVisualizer(defaultLook, field, character)
+initDefaultLookMutators(visualizer, character)
 hud = HUD(character, 34, 2)
 
 character.subscribe(visualizer)
