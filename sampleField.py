@@ -44,7 +44,7 @@ def create():
     # Vault
     for y in range(1, 6):
         if y == 3:
-            field.addObject(21, y, VaultDoor())
+            field.addObject(21, y, VaultDoor([1, 2, 3, 4]))
         else:
             field.addObject(21, y, Wall())
 
