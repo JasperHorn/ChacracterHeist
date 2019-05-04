@@ -1,6 +1,7 @@
 
 from colorama import Style, Fore, Back
 from Game.Objects import Wall, Money, TargetTreasure, Exit, Door, FogOfWar
+from Game import PlayerCharacter
 
 from .LooksRepository import LooksRepository
 from .TargetAcquiredLookMutator import TargetAcquiredLookMutator
@@ -13,6 +14,7 @@ defaultLook.defineObjectLook(TargetTreasure, '*', Fore.GREEN + Style.BRIGHT + Ba
 defaultLook.defineObjectLook(Exit, 'O', Fore.CYAN + Back.BLUE)
 defaultLook.defineObjectLook(Door, 'Z', Fore.GREEN + Back.BLUE)
 defaultLook.defineObjectLook(FogOfWar, '.', Fore.WHITE + Back.BLACK)
+defaultLook.defineObjectLook(PlayerCharacter, '@', Fore.CYAN + Back.BLACK)
 
 lookMutators = []
 

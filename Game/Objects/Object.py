@@ -14,3 +14,6 @@ class Object:
 
     def getVisibilityPriority(self):
         return 0
+
+    def isTransparent(self):
+        return False

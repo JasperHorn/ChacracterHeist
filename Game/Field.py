@@ -37,6 +37,14 @@ class Field:
             return all(obj.isPassable(character) for obj in self.squares[x][y])
 
     def moveTo(self, character, x, y):
+        self.squares[character.x][character.y].remove(character)
+        self.notifyPositionChanged(character.x, character.y)
+
+        character.x = x
+        character.y = y
+        self.squares[x][y].append(character)
+        self.notifyPositionChanged(x, y)
+
         for object in self.squares[x][y]:
             object.stepOn(character)
 
@@ -49,6 +57,9 @@ class Field:
         return x >= 0 and x < self.width and y >= 0 and y < self.height
 
     def spreadViewingFromPoint(self, x, y):
+        for object in self.squares[x][y]:
+            object.view()
+
         viewQueue = [(x, y)]
         viewPoints = {(x, y)}
 
@@ -63,7 +74,7 @@ class Field:
                 if (object is not None):
                     object.view()
 
-            if object is None:
+            if object is None or object.isTransparent():
                 for dx in range(-1, 2):
                     for dy in range(-1, 2):
                         newPoint = (point[0] + dx, point[1] + dy)

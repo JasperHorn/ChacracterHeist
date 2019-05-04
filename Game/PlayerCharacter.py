@@ -1,5 +1,7 @@
 
-class PlayerCharacter:
+from .Objects import Object
+
+class PlayerCharacter(Object):
 
     def __init__(self, field, x, y):
         self.field = field
@@ -10,28 +12,32 @@ class PlayerCharacter:
         self.hasTarget = False
         self.exited = False
 
+        self.field.addObject(x, y, self)
+
+    def getVisibilityPriority(self):
+        return 100000;
+
+    def isTransparent(self):
+        return True
+
     def moveUp(self):
         if self.field.canMoveTo(self.x, self.y - 1, self):
-            self.y -= 1
-            self.field.moveTo(self, self.x, self.y)
+            self.field.moveTo(self, self.x, self.y - 1)
             self.notifyMovement(self.x, self.y + 1)
 
     def moveDown(self):
         if self.field.canMoveTo(self.x, self.y + 1, self):
-            self.y += 1
-            self.field.moveTo(self, self.x, self.y)
+            self.field.moveTo(self, self.x, self.y + 1)
             self.notifyMovement(self.x, self.y - 1)
 
     def moveLeft(self):
         if self.field.canMoveTo(self.x - 1, self.y, self):
-            self.x -= 1
-            self.field.moveTo(self, self.x, self.y)
+            self.field.moveTo(self, self.x - 1, self.y)
             self.notifyMovement(self.x + 1, self.y)
 
     def moveRight(self):
         if self.field.canMoveTo(self.x + 1, self.y, self):
-            self.x += 1
-            self.field.moveTo(self, self.x, self.y)
+            self.field.moveTo(self, self.x + 1, self.y)
             self.notifyMovement(self.x - 1, self.y)
 
     def addMoney(self, amount):
