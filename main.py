@@ -26,8 +26,6 @@ visualizer = FieldVisualizer(defaultLook, field, character)
 initDefaultLookMutators(visualizer, character)
 hud = HUD(character, 34, 2)
 
-character.subscribe(visualizer)
-
 while not character.exited:
     input = readchar.readkey()
 

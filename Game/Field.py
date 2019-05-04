@@ -5,6 +5,7 @@ class Field:
     def __init__(self, width, height):
         self.width = width
         self.height = height
+        self.observers = []
 
         self.objects = {}
         self.squares = []
@@ -14,15 +15,20 @@ class Field:
                 row.append([]);
             self.squares.append(row)
 
+    def subscribe(self, observer):
+        self.observers.append(observer)
+
     def addObject(self, x, y, object):
         self.squares[x][y].append(object)
         self.objects[object] = (x, y)
         object.setField(self)
+        self.notifyPositionChanged(x, y)
 
     def removeObject(self, object):
         x, y = self.objects[object]
         del self.objects[object]
         self.squares[x][y].remove(object)
+        self.notifyPositionChanged(x, y)
 
     def canMoveTo(self, x, y, character):
         if not self.inBounds(x, y):
@@ -64,3 +70,7 @@ class Field:
                         if not newPoint in viewPoints and self.inBounds(newPoint[0], newPoint[1]):
                             viewQueue.append(newPoint)
                             viewPoints.add(newPoint)
+
+    def notifyPositionChanged(self, x, y):
+        for observer in self.observers:
+            observer.fieldPositionChanged(x, y)
