@@ -1,6 +1,7 @@
 
 from Game import Field
 from Game.Objects import Money, Wall, TargetTreasure, Exit, Door, FogOfWar
+from Game.Objects import VaultDoor
 
 width = 30
 height = 20
@@ -39,6 +40,13 @@ def create():
             field.addObject(x, 6, Door())
         else:
             field.addObject(x, 6, Wall())
+
+    # Vault
+    for y in range(1, 6):
+        if y == 3:
+            field.addObject(21, y, VaultDoor())
+        else:
+            field.addObject(21, y, Wall())
 
     for y in range(2, 5):
         field.addObject(19, y, Money(10))
