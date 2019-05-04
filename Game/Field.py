@@ -1,4 +1,6 @@
 
+import consoleUtils
+
 class Field:
     def __init__(self, width, height):
         self.width = width
@@ -9,30 +11,32 @@ class Field:
         for x in range(0, width):
             row = []
             for y in range(0, height):
-                row.append(None);
+                row.append([]);
             self.squares.append(row)
 
     def addObject(self, x, y, object):
-        self.squares[x][y] = object
+        self.squares[x][y].append(object)
         self.objects[object] = (x, y)
         object.setField(self)
 
     def removeObject(self, object):
         x, y = self.objects[object]
         del self.objects[object]
-        self.squares[x][y] = None
+        self.squares[x][y].remove(object)
 
     def canMoveTo(self, x, y, character):
         if x < 0 or x >= self.width or y < 0 or y >= self.height:
             return False
-        elif self.squares[x][y] is None:
-            return True
         else:
-            return self.squares[x][y].isPassable(character)
+            return all(obj.isPassable(character) for obj in self.squares[x][y])
 
     def moveTo(self, character, x, y):
-        if not (self.squares[x][y] is None):
-            self.squares[x][y].stepOn(character)
+        for object in self.squares[x][y]:
+            object.stepOn(character)
 
-    def getObjectAtLocation(self, x, y):
-        return self.squares[x][y]
+    def getVisibleObjectAtLocation(self, x, y):
+        square = self.squares[x][y]
+        if not square:
+            return None
+        else:
+            return square[0]

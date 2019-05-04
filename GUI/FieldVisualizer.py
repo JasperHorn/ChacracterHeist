@@ -27,11 +27,11 @@ class FieldVisualizer(CharacterObserver):
     def redraw(self, objectType):
         for x in range(0, self.field.width):
             for y in range(0, self.field.height):
-                if isinstance(self.field.getObjectAtLocation(x, y), objectType):
+                if isinstance(self.field.getVisibleObjectAtLocation(x, y), objectType):
                     self.drawObjectAtLocation(x, y)
 
     def drawObjectAtLocation(self, x, y):
-        object = self.field.getObjectAtLocation(x, y)
+        object = self.field.getVisibleObjectAtLocation(x, y)
         symbol = self.look.getObjectSymbol(object)
         style = self.look.getObjectStyle(object)
 
