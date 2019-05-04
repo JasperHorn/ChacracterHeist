@@ -11,3 +11,6 @@ class CharacterObserver:
 
     def characterStartedCracking(self, vaultDoor):
         pass
+
+    def characterStoppedCracking(self):
+        pass

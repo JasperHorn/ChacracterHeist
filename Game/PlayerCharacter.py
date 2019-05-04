@@ -35,6 +35,9 @@ class PlayerCharacter(Object):
 
     def act(self, fromX, fromY, x, y):
         if self.field.canMoveTo(x, y, self):
+            if not self.crackingVaultDoor is None:
+                self.crackingVaultDoor = None
+                self.notifyStopCrackingVaultDoor()
             self.field.moveTo(self, x, y)
             self.notifyMovement(fromX, fromY)
         elif self.field.canBeInteractedWith(x, y, self):
@@ -73,3 +76,7 @@ class PlayerCharacter(Object):
     def notifyStartCrackingVaultDoor(self):
         for observer in self.observers:
             observer.characterStartedCracking(self.crackingVaultDoor)
+
+    def notifyStopCrackingVaultDoor(self):
+        for observer in self.observers:
+            observer.characterStoppedCracking()

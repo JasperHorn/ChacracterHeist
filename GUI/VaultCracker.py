@@ -32,3 +32,7 @@ class VaultCracker(CharacterObserver):
                 consoleUtils.specialPrint(self.y + 6, self.x + 2 + n, str(self.vaultDoor.getCodeDigit(n)), Fore.GREEN + Style.BRIGHT)
             else:
                 consoleUtils.specialPrint(self.y + 6, self.x + 2 + n, '?', Fore.RED + Style.BRIGHT)
+
+    def characterStoppedCracking(self):
+        for dy in range(0, self.height):
+            consoleUtils.specialPrint(self.y + dy, self.x, ' ' * self.width)
