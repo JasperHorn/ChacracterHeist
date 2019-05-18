@@ -66,7 +66,7 @@ while not character.exited and not character.captured:
     elif input == 'q':
         break;
 
-    if acted:
+    if acted and not character.captured:
         enemyManager.move()
 
 print()
