@@ -13,6 +13,22 @@ class Player(Character):
         self.crackingVaultDoor = None
         self.captured = False
 
+    def isPlayer(self):
+        return True
+
+    def act(self, fromX, fromY, x, y):
+        acted = super().act(fromX, fromY, x, y)
+
+        if acted and self.hasMoved(fromX, fromY, x, y):
+            if not self.crackingVaultDoor is None:
+                self.stopCrackingVaultDoor()
+
+            self.notifyMovement(fromX, fromY)
+
+    def hasMoved(self, fromX, fromY, x, y):
+        return ((fromX != x or fromY != y)
+                and (self.x == x and self.y == y))
+
     def crack(self, number):
         if not self.crackingVaultDoor is None:
             self.crackingVaultDoor.crack(self, number)

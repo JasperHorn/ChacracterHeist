@@ -16,6 +16,9 @@ class Character(Object):
     def isTransparent(self):
         return True
 
+    def isPlayer(self):
+        return False
+
     def actUp(self):
         self.act(self.x, self.y, self.x, self.y - 1)
 
@@ -30,9 +33,10 @@ class Character(Object):
 
     def act(self, fromX, fromY, x, y):
         if self.field.canMoveTo(x, y, self):
-            if not self.crackingVaultDoor is None:
-                self.stopCrackingVaultDoor()
             self.field.moveTo(self, x, y)
-            self.notifyMovement(fromX, fromY)
+            return True
         elif self.field.canBeInteractedWith(x, y, self):
             self.field.interact(x, y, self)
+            return True
+
+        return False
