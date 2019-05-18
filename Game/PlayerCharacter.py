@@ -12,6 +12,7 @@ class PlayerCharacter(Object):
         self.hasTarget = False
         self.exited = False
         self.crackingVaultDoor = None
+        self.captured = False
 
         self.field.addObject(x, y, self)
 
@@ -56,6 +57,9 @@ class PlayerCharacter(Object):
 
         if value:
             self.notifyGotTarget()
+
+    def capture(self):
+        self.captured = True
 
     def startCrackingVaultDoor(self, vaultDoor):
         self.crackingVaultDoor = vaultDoor

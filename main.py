@@ -27,7 +27,7 @@ initDefaultLookMutators(visualizer, character)
 hud = HUD(character, 34, 2)
 vaultCracker = VaultCracker(character, 47, 2)
 
-while not character.exited:
+while not character.exited and not character.captured:
     input = readchar.readkey()
 
     if input == '\x1b[D': # left arrow
@@ -65,5 +65,7 @@ print()
 
 if character.exited:
     print('You stole the treasure and won the game!')
+elif character.captured:
+    print('You were captured. Game over.')
 else:
     print('You exited the game without winning.')
