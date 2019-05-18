@@ -15,7 +15,7 @@ class VaultDoor(Object):
         self.observers.remove(observer)
 
     def canBeInteractedWith(self, character):
-        return True
+        return character.crackingVaultDoor != self
 
     def interact(self, character):
         character.startCrackingVaultDoor(self)
