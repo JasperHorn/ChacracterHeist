@@ -5,7 +5,8 @@ import colorama
 import sampleField
 import consoleUtils
 
-from Game.Characters import Player, Guard
+from Game import EnemyManager
+from Game.Characters import Player
 from GUI import FieldVisualizer, VaultCracker, drawIntroScreen
 from GUI import defaultLook, initDefaultLookMutators
 from GUI.HUD import HUD
@@ -16,9 +17,10 @@ consoleUtils.clearScreen()
 drawIntroScreen()
 readchar.readkey()
 
-field = sampleField.create()
+enemyManager = EnemyManager()
+
+field = sampleField.create(enemyManager)
 character = Player(field, 2, 2)
-guard = Guard(field, 12, 4)
 field.spreadViewingFromPoint(character.x, character.y)
 
 consoleUtils.clearScreen()
@@ -62,7 +64,7 @@ while not character.exited and not character.captured:
     elif input == 'q':
         break;
     elif input == 'a':
-        guard.move()
+        enemyManager.move()
 
 print()
 

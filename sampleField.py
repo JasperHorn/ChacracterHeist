@@ -4,6 +4,7 @@ import random
 from Game import Field
 from Game.Objects import Money, Wall, TargetTreasure, Exit, Door, FogOfWar
 from Game.Objects import VaultDoor
+from Game.Characters import Guard
 
 width = 30
 height = 20
@@ -11,7 +12,7 @@ height = 20
 def randomCode(length):
     return random.sample(range(0, 10), length)
 
-def create():
+def create(enemyManager):
     field = Field(width, height)
 
     for x in range(0, width):
@@ -62,5 +63,9 @@ def create():
     for x in range(1, width - 1):
         for y in range(1, height - 1):
             field.addObject(x, y, FogOfWar())
+
+    # Enemies
+    enemyManager.addEnemy(Guard(field, 12, 4))
+    enemyManager.addEnemy(Guard(field, 3, 15))
 
     return field
