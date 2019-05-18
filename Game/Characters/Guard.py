@@ -22,3 +22,7 @@ class Guard(Character):
             self.actLeft()
         elif direction == 3:
             self.actRight()
+
+        player = self.field.getPlayerIfAtLocation(self.x, self.y)
+        if player is not None:
+            self.stepOn(player)

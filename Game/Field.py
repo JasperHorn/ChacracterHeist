@@ -71,6 +71,13 @@ class Field:
         return max(square, key = lambda obj: obj.getVisibilityPriority(),
                    default = None);
 
+    def getPlayerIfAtLocation(self, x, y):
+        for object in self.squares[x][y]:
+            if object.isPlayer():
+                return object
+        
+        return None
+
     def inBounds(self, x, y):
         return x >= 0 and x < self.width and y >= 0 and y < self.height
 
