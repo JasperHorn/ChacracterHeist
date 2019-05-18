@@ -20,16 +20,16 @@ class Character(Object):
         return False
 
     def actUp(self):
-        self.act(self.x, self.y, self.x, self.y - 1)
+        return self.act(self.x, self.y, self.x, self.y - 1)
 
     def actDown(self):
-        self.act(self.x, self.y, self.x, self.y + 1)
+        return self.act(self.x, self.y, self.x, self.y + 1)
 
     def actLeft(self):
-        self.act(self.x, self.y, self.x - 1, self.y)
+        return self.act(self.x, self.y, self.x - 1, self.y)
 
     def actRight(self):
-        self.act(self.x, self.y, self.x + 1, self.y)
+        return self.act(self.x, self.y, self.x + 1, self.y)
 
     def act(self, fromX, fromY, x, y):
         if self.field.canMoveTo(x, y, self):

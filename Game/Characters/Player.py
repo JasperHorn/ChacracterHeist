@@ -25,6 +25,8 @@ class Player(Character):
 
             self.notifyMovement(fromX, fromY)
 
+        return acted
+
     def hasMoved(self, fromX, fromY, x, y):
         return ((fromX != x or fromY != y)
                 and (self.x == x and self.y == y))
@@ -32,6 +34,9 @@ class Player(Character):
     def crack(self, number):
         if not self.crackingVaultDoor is None:
             self.crackingVaultDoor.crack(self, number)
+            return True
+
+        return False
 
     def addMoney(self, amount):
         self.money += amount

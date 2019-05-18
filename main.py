@@ -33,37 +33,40 @@ vaultCracker = VaultCracker(character, 47, 2)
 while not character.exited and not character.captured:
     input = readchar.readkey()
 
+    acted = False
+
     if input == '\x1b[D': # left arrow
-        character.actLeft()
+        acted = character.actLeft()
     elif input == '\x1b[C': # right arrow
-        character.actRight()
+        acted = character.actRight()
     elif input == '\x1b[A': # up arrow
-        character.actUp()
+        acted = character.actUp()
     elif input == '\x1b[B': # down arrow
-        character.actDown()
+        acted = character.actDown()
     elif input == '0':
-        character.crack(0)
+        acted = character.crack(0)
     elif input == '1':
-        character.crack(1)
+        acted = character.crack(1)
     elif input == '2':
-        character.crack(2)
+        acted = character.crack(2)
     elif input == '3':
-        character.crack(3)
+        acted = character.crack(3)
     elif input == '4':
-        character.crack(4)
+        acted = character.crack(4)
     elif input == '5':
-        character.crack(5)
+        acted = character.crack(5)
     elif input == '6':
-        character.crack(6)
+        acted = character.crack(6)
     elif input == '7':
-        character.crack(7)
+        acted = character.crack(7)
     elif input == '8':
-        character.crack(8)
+        acted = character.crack(8)
     elif input == '9':
-        character.crack(9)
+        acted = character.crack(9)
     elif input == 'q':
         break;
-    elif input == 'a':
+
+    if acted:
         enemyManager.move()
 
 print()
