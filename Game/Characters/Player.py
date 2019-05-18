@@ -1,47 +1,17 @@
 
-from .Objects import Object
+from .Character import Character
 
-class PlayerCharacter(Object):
+class Player(Character):
 
     def __init__(self, field, x, y):
-        self.field = field
-        self.x = x
-        self.y = y
+        super().__init__(field, x, y)
+
         self.observers = []
         self.money = 0
         self.hasTarget = False
         self.exited = False
         self.crackingVaultDoor = None
         self.captured = False
-
-        self.field.addObject(x, y, self)
-
-    def getVisibilityPriority(self):
-        return 100000;
-
-    def isTransparent(self):
-        return True
-
-    def actUp(self):
-        self.act(self.x, self.y, self.x, self.y - 1)
-
-    def actDown(self):
-        self.act(self.x, self.y, self.x, self.y + 1)
-
-    def actLeft(self):
-        self.act(self.x, self.y, self.x - 1, self.y)
-
-    def actRight(self):
-        self.act(self.x, self.y, self.x + 1, self.y)
-
-    def act(self, fromX, fromY, x, y):
-        if self.field.canMoveTo(x, y, self):
-            if not self.crackingVaultDoor is None:
-                self.stopCrackingVaultDoor()
-            self.field.moveTo(self, x, y)
-            self.notifyMovement(fromX, fromY)
-        elif self.field.canBeInteractedWith(x, y, self):
-            self.field.interact(x, y, self)
 
     def crack(self, number):
         if not self.crackingVaultDoor is None:

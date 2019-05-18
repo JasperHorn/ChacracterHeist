@@ -3,7 +3,7 @@ import random
 
 from Game import Field
 from Game.Objects import Money, Wall, TargetTreasure, Exit, Door, FogOfWar
-from Game.Objects import VaultDoor, Guard
+from Game.Objects import VaultDoor
 
 width = 30
 height = 20
@@ -62,8 +62,5 @@ def create():
     for x in range(1, width - 1):
         for y in range(1, height - 1):
             field.addObject(x, y, FogOfWar())
-
-    # Enemies
-    field.addObject(12, 4, Guard())
 
     return field

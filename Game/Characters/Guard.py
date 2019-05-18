@@ -1,7 +1,7 @@
 
-from .Object import Object
+from .Character import Character
 
-class Guard(Object):
+class Guard(Character):
     def stepOn(self, player):
         player.capture()
 
