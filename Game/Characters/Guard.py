@@ -5,6 +5,7 @@ import consoleUtils
 
 from .Character import Character
 from Vector import Vector
+from coordinateUtils import filledManhattanCircle
 
 class Guard(Character):
     def __init__(self, field, x, y):
@@ -37,28 +38,10 @@ class Guard(Character):
         self.actUp()
 
     def findWallToFollow(self):
-        for (x, y) in self.searchArea(2):
+        for (x, y) in filledManhattanCircle(2):
             if self.followable(Vector(self.x + x, self.y + y)):
                 self.patrolDirection = Vector(x, y).unitize().rotateCounterClockwise()
                 return
-
-    def searchArea(self, radius):
-        for distance in range(1, radius + 1):
-            for coordinate in self.manhattanCirle(distance):
-                yield coordinate
-
-    def manhattanCirle(self, radius):
-        for n in range(0, radius * 4):
-            # Start (0, -r) instead of (r, 0)
-            n = (n - radius) % (radius * 4)
-
-            if n <= radius * 2:
-                x = radius - n
-                y = radius - abs(x)
-            else:
-                x = -3 * radius + n
-                y = -radius + abs(x)
-            yield (x, y)
 
     def patrolMove(self):
         twoAhead = Vector(self.x, self.y) + self.patrolDirection * 2
