@@ -22,13 +22,15 @@ class Field:
         self.squares[x][y].append(object)
         self.objects[object] = (x, y)
         object.setField(self)
-        self.notifyPositionChanged(x, y)
+        visible = self.getVisibleObjectAtLocation(x, y) is object
+        self.notifyPositionChanged(x, y, visible)
 
     def removeObject(self, object):
         x, y = self.objects[object]
+        visible = self.getVisibleObjectAtLocation(x, y) is object
         del self.objects[object]
         self.squares[x][y].remove(object)
-        self.notifyPositionChanged(x, y)
+        self.notifyPositionChanged(x, y, visible)
 
     def replaceObject(self, oldObject, newObject):
         x, y = self.objects[oldObject]
@@ -43,13 +45,15 @@ class Field:
             return all(obj.isPassable(character) for obj in self.squares[x][y])
 
     def moveTo(self, character, x, y):
+        visible = self.getVisibleObjectAtLocation(character.x, character.y) is character
         self.squares[character.x][character.y].remove(character)
-        self.notifyPositionChanged(character.x, character.y)
+        self.notifyPositionChanged(character.x, character.y, visible)
 
         character.x = x
         character.y = y
         self.squares[x][y].append(character)
-        self.notifyPositionChanged(x, y)
+        visible = self.getVisibleObjectAtLocation(x, y) is character
+        self.notifyPositionChanged(x, y, visible)
 
         for object in self.squares[x][y]:
             object.stepOn(character)
@@ -113,6 +117,6 @@ class Field:
                             viewQueue.append(newPoint)
                             viewPoints.add(newPoint)
 
-    def notifyPositionChanged(self, x, y):
+    def notifyPositionChanged(self, x, y, visible):
         for observer in self.observers:
-            observer.fieldPositionChanged(x, y)
+            observer.fieldPositionChanged(x, y, visible)

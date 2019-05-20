@@ -19,8 +19,9 @@ class FieldVisualizer(FieldObserver):
             for y in range(0, field.height):
                 self.drawObjectAtLocation(x, y)
 
-    def fieldPositionChanged(self, x, y):
-        self.drawObjectAtLocation(x, y)
+    def fieldPositionChanged(self, x, y, visible):
+        if visible:
+            self.drawObjectAtLocation(x, y)
 
     def redraw(self, objectType):
         for x in range(0, self.field.width):
