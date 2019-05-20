@@ -40,7 +40,8 @@ class Guard(Character):
     def findWallToFollow(self):
         for (x, y) in filledManhattanCircle(2):
             if self.followable(Vector(self.x + x, self.y + y)):
-                self.patrolDirection = Vector(x, y).unitize().rotateCounterClockwise()
+                newDirection = Vector(x, y).unitize().rotateCounterClockwise()
+                self.patrolDirection = newDirection
                 return
 
     def patrolMove(self):
@@ -51,7 +52,10 @@ class Guard(Character):
         if not changedDirection:
             changedDirection = self.rotateAroundConcaveCorner()
 
-        self.act(self.x, self.y, self.x + self.patrolDirection.x, self.y + self.patrolDirection.y)
+        self.act(self.x,
+                 self.y,
+                 self.x + self.patrolDirection.x,
+                 self.y + self.patrolDirection.y)
 
     def rotateWithConvexCorner(self):
         twoAhead = Vector(self.x, self.y) + self.patrolDirection * 2
@@ -67,11 +71,14 @@ class Guard(Character):
         wallGapAroundCorner = aroundCorner + self.patrolDirection * -1
         corner = wallGapAroundCorner + self.patrolDirection * -1
 
-        if not self.followable(aroundCorner) and not self.followable(wallGapAroundCorner) and self.followable(corner):
+        if (not self.followable(aroundCorner)
+                and not self.followable(wallGapAroundCorner)
+                and self.followable(corner)):
             self.patrolDirection = self.patrolDirection.rotateClockwise()
             return True
 
         return False
 
     def followable(self, vector):
-        return self.field.getVisibleObjectAtLocation(vector.x, vector.y) is not None
+        object = self.field.getVisibleObjectAtLocation(vector.x, vector.y)
+        return object is not None
