@@ -44,10 +44,17 @@ class Guard(Character):
                 return
 
     def patrolMove(self):
+        self.rotateWithConvexCorner()
+        self.rotateAroundConcaveCorner()
+
+        self.act(self.x, self.y, self.x + self.patrolDirection.x, self.y + self.patrolDirection.y)
+
+    def rotateWithConvexCorner(self):
         twoAhead = Vector(self.x, self.y) + self.patrolDirection * 2
         if self.followable(twoAhead):
             self.patrolDirection = self.patrolDirection.rotateCounterClockwise()
 
+    def rotateAroundConcaveCorner(self):
         clockwise = self.patrolDirection.rotateClockwise()
         aroundCorner = Vector(self.x, self.y) + clockwise * 2
         wallGapAroundCorner = aroundCorner + self.patrolDirection * -1
@@ -55,8 +62,6 @@ class Guard(Character):
 
         if not self.followable(aroundCorner) and not self.followable(wallGapAroundCorner) and self.followable(corner):
             self.patrolDirection = self.patrolDirection.rotateClockwise()
-
-        self.act(self.x, self.y, self.x + self.patrolDirection.x, self.y + self.patrolDirection.y)
 
     def followable(self, vector):
         return self.field.getVisibleObjectAtLocation(vector.x, vector.y) is not None
