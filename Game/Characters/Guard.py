@@ -4,6 +4,7 @@ import random
 import consoleUtils
 
 from .Character import Character
+from Vector import Vector
 
 class Guard(Character):
     def __init__(self, field, x, y):
@@ -37,21 +38,9 @@ class Guard(Character):
 
     def findWallToFollow(self):
         for (x, y) in self.searchArea(2):
-            if self.followable(self.x + x, self.y + y):
-                self.patrolDirection = self.unitize(self.rotateCounterClockwise((x, y)))
+            if self.followable(Vector(self.x + x, self.y + y)):
+                self.patrolDirection = Vector(x, y).unitize().rotateCounterClockwise()
                 return
-
-    def unitize(self, vector):
-        x = vector[0]
-        y = vector[1]
-
-        if x != 0:
-            x = int(x / abs(x))
-
-        if y != 0:
-            y = int(y / abs(y))
-
-        return (x, y)
 
     def searchArea(self, radius):
         for distance in range(1, radius + 1):
@@ -72,25 +61,19 @@ class Guard(Character):
             yield (x, y)
 
     def patrolMove(self):
-        twoAhead = (self.x + self.patrolDirection[0] * 2, self.y + self.patrolDirection[1] * 2)
-        if self.followable(twoAhead[0], twoAhead[1]):
-            self.patrolDirection = self.rotateCounterClockwise(self.patrolDirection)
+        twoAhead = Vector(self.x, self.y) + self.patrolDirection * 2
+        if self.followable(twoAhead):
+            self.patrolDirection = self.patrolDirection.rotateCounterClockwise()
 
-        clockwise = self.rotateClockwise(self.patrolDirection)
-        aroundCorner = (self.x + clockwise[0] * 2, self.y + clockwise[1] * 2)
-        wallGapAroundCorner = (aroundCorner[0] + self.patrolDirection[0] * -1, aroundCorner[1] + self.patrolDirection[1] * -1)
-        corner = (wallGapAroundCorner[0] + self.patrolDirection[0] * -1, wallGapAroundCorner[1] + self.patrolDirection[1] * -1)
+        clockwise = self.patrolDirection.rotateClockwise()
+        aroundCorner = Vector(self.x, self.y) + clockwise * 2
+        wallGapAroundCorner = aroundCorner + self.patrolDirection * -1
+        corner = wallGapAroundCorner + self.patrolDirection * -1
 
-        if (not self.followable(aroundCorner[0], aroundCorner[1]) and not self.followable(wallGapAroundCorner[0], wallGapAroundCorner[1]) and self.followable(corner[0], corner[1])):
-            self.patrolDirection = self.rotateClockwise(self.patrolDirection)
+        if not self.followable(aroundCorner) and not self.followable(wallGapAroundCorner) and self.followable(corner):
+            self.patrolDirection = self.patrolDirection.rotateClockwise()
 
-        self.act(self.x, self.y, self.x + self.patrolDirection[0], self.y + self.patrolDirection[1])
+        self.act(self.x, self.y, self.x + self.patrolDirection.x, self.y + self.patrolDirection.y)
 
-    def followable(self, x, y):
-        return self.field.getVisibleObjectAtLocation(x, y) is not None
-
-    def rotateCounterClockwise(self, direction):
-        return (direction[1], direction[0] * -1)
-
-    def rotateClockwise(self, direction):
-        return (direction[1] * -1, direction[0])
+    def followable(self, vector):
+        return self.field.getVisibleObjectAtLocation(vector.x, vector.y) is not None
