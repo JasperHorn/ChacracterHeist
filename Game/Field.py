@@ -64,6 +64,12 @@ class Field:
         for object in self.squares[x][y]:
             object.interact(character)
 
+    def shouldPatrolAlong(self, x, y, guard):
+        if not self.inBounds(x, y):
+            return True
+        else:
+            return any(obj.shouldPatrolAlong(guard) for obj in self.squares[x][y])
+
     def getVisibleObjectAtLocation(self, x, y, print = False):
         square = self.squares[x][y]
         if print:
@@ -75,7 +81,7 @@ class Field:
         for object in self.squares[x][y]:
             if object.isPlayer():
                 return object
-        
+
         return None
 
     def inBounds(self, x, y):

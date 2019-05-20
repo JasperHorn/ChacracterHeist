@@ -16,9 +16,6 @@ class Character(Object):
     def isTransparent(self):
         return True
 
-    def isPlayer(self):
-        return False
-
     def actUp(self):
         return self.act(self.x, self.y, self.x, self.y - 1)
 

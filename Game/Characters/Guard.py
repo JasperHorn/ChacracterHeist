@@ -80,5 +80,4 @@ class Guard(Character):
         return False
 
     def followable(self, vector):
-        object = self.field.getVisibleObjectAtLocation(vector.x, vector.y)
-        return object is not None
+        return self.field.shouldPatrolAlong(vector.x, vector.y, self)

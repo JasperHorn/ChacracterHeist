@@ -23,3 +23,9 @@ class Object:
 
     def interact(self, character):
         pass
+
+    def shouldPatrolAlong(self, guard):
+        return not self.isPassable(guard)
+
+    def isPlayer(self):
+        return False

@@ -67,5 +67,6 @@ def create(enemyManager):
     # Enemies
     enemyManager.addEnemy(Guard(field, 12, 4))
     enemyManager.addEnemy(Guard(field, 3, 15))
+    enemyManager.addEnemy(Guard(field, 17, 17))
 
     return field
