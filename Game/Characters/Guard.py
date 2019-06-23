@@ -7,12 +7,23 @@ from .Character import Character
 from Vector import Vector
 from coordinateUtils import crossByDistance, filledManhattanCircle
 
+horizontalThenVertical = [Vector(1, 0),
+                          Vector(-1, 0),
+                          Vector(0, 1),
+                          Vector(0, -1)]
+
+verticalThenHorizontal = [Vector(0, 1),
+                          Vector(0, -1),
+                          Vector(1, 0),
+                          Vector(-1, 0)]
+
 class Guard(Character):
     def __init__(self, field, x, y):
         super().__init__(field, x, y)
 
         self.patrolDirection = None
         self.target = None
+        self.lastMoveTowardsTargetWasHorizontal = False
         
     def stepOn(self, character):
         if character.isPlayer():
@@ -60,36 +71,45 @@ class Guard(Character):
                 self.target = Vector(self.x + x, self.y + y)
 
     def moveTowardsTarget(self):
-        if self.target.x > self.x and self.canMoveRight():
-            self.actRight()
-        elif self.target.x < self.x and self.canMoveLeft():
-            self.actLeft()
-        elif self.target.y > self.y and self.canMoveDown():
-            self.actDown()
-        elif self.target.y < self.y and self.canMoveUp():
-            self.actUp()
+        if self.lastMoveTowardsTargetWasHorizontal:
+            order = verticalThenHorizontal
         else:
+            order = horizontalThenVertical
+        
+        moved = False
+        
+        for direction in order:
+            coordinate = Vector(self.x, self.y) + direction
+            
+            if self.isCloserToTarget(coordinate) and self.canMoveTo(coordinate):
+                self.act(self.x, self.y, coordinate.x, coordinate.y)
+                moved = True
+                
+                if direction.x != 0:
+                    self.lastMoveTowardsTargetWasHorizontal = True
+                else:
+                    self.lastMoveTowardsTargetWasHorizontal = False
+                
+                # Move only once    
+                break
+            
+        if not moved:
             self.target = None
         
-        self.patrolDirection = None;
+        self.patrolDirection = None
         if self.target is not None:
             if self.x == self.target.x and self.y == self.target.y:
                 self.target = None
-    
-    def canMoveDown(self):
-        return self.canMoveTo(self.x, self.y + 1)
 
-    def canMoveUp(self):
-        return self.canMoveTo(self.x, self.y - 1)
+    def isCloserToTarget(self, coordinate):
+        ownDistance = abs(self.target - Vector(self.x, self.y))
+        coordinateDistance = abs(self.target - coordinate)
+        
+        return (coordinateDistance.x <= ownDistance.x 
+                and coordinateDistance.y <= ownDistance.y) 
 
-    def canMoveRight(self):
-        return self.canMoveTo(self.x + 1, self.y)
-
-    def canMoveLeft(self):
-        return self.canMoveTo(self.x - 1, self.y)
-    
-    def canMoveTo(self, x, y):
-        return self.field.canMoveTo(x, y, self)
+    def canMoveTo(self, to):
+        return self.field.canMoveTo(to.x, to.y, self)
 
     def patrolMove(self):
         changedDirection = False

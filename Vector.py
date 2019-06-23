@@ -10,6 +10,12 @@ class Vector:
     def __add__(self, vector):
         return Vector(self.x + vector.x, self.y + vector.y)
 
+    def __sub__(self, vector):
+        return self + (vector * -1)
+
+    def __abs__(self):
+        return Vector(abs(self.x), abs(self.y))
+
     def rotateClockwise(self):
         return Vector(self.y * -1, self.x)
 
