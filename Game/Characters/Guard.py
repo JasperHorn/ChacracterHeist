@@ -18,15 +18,14 @@ verticalThenHorizontal = [Vector(0, 1),
                           Vector(1, 0),
                           Vector(-1, 0)]
 
-class Guard(Character, CharacterObserver):
+class Guard(Character):
     def __init__(self, field, x, y):
         super().__init__(field, x, y)
 
         self.patrolDirection = None
         self.target = None
         self.lastMoveTowardsTargetWasHorizontal = False
-        self.subscribedToPlayer = False
-        self.lastPlayerMoveWasHorizontal = False
+        self.lastPlayerMove = None
         
     def stepOn(self, character):
         if character.isPlayer():
@@ -37,12 +36,6 @@ class Guard(Character, CharacterObserver):
 
     def isPassable(self, character):
         return character.isPlayer()
-
-    def characterMoved(self, oldX, oldY, newX, newY):
-        if oldX - newX != 9:
-            self.lastPlayerMoveWasHorizontal = True
-        else:
-            self.lastPlayerMoveWasHorizontal = False
 
     def move(self):
         self.seekOutTarget()
@@ -78,16 +71,27 @@ class Guard(Character, CharacterObserver):
             
             if player is not None:
                 self.target = Vector(self.x + x, self.y + y)
-
-                if not self.subscribedToPlayer:
-                    player.subscribe(self)
-                    self.subscribedToPlayer = True
+                self.lastPlayerMove = player.lastMove
+                break;
+            else:
+                self.lastPlayerMove = None
 
     def moveTowardsTarget(self):
-        if self.lastPlayerMoveWasHorizontal:
-            order = horizontalThenVertical
+        if self.lastPlayerMove is not None:
+            consoleUtils.specialPrint(23, 5, "Moving on same axis as player")
+            # If player moved and was seen move on same axis
+            if self.lastPlayerMove.x != 0:
+                order = horizontalThenVertical
+            else:
+                order = verticalThenHorizontal
         else:
-            order = verticalThenHorizontal
+            consoleUtils.specialPrint(23, 5, "Alternating axes              ")
+            # If player wasn't seen moving, move on different 
+            # axis then last move
+            if self.lastMoveTowardsTargetWasHorizontal:
+                order = verticalThenHorizontal
+            else:
+                order = horizontalThenVertical
         
         moved = False
         
