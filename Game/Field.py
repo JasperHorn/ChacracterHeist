@@ -82,6 +82,9 @@ class Field:
                    default = None);
 
     def getPlayerIfAtLocation(self, x, y):
+        if not self.inBounds(x, y):
+            return None
+
         for object in self.squares[x][y]:
             if object.isPlayer():
                 return object
