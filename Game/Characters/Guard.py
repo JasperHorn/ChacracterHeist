@@ -4,6 +4,7 @@ import random
 import consoleUtils
 
 from .Character import Character
+from CharacterObserver import CharacterObserver
 from Vector import Vector
 from coordinateUtils import crossByDistance, filledManhattanCircle
 
@@ -17,13 +18,15 @@ verticalThenHorizontal = [Vector(0, 1),
                           Vector(1, 0),
                           Vector(-1, 0)]
 
-class Guard(Character):
+class Guard(Character, CharacterObserver):
     def __init__(self, field, x, y):
         super().__init__(field, x, y)
 
         self.patrolDirection = None
         self.target = None
         self.lastMoveTowardsTargetWasHorizontal = False
+        self.subscribedToPlayer = False
+        self.lastPlayerMoveWasHorizontal = False
         
     def stepOn(self, character):
         if character.isPlayer():
@@ -34,6 +37,12 @@ class Guard(Character):
 
     def isPassable(self, character):
         return character.isPlayer()
+
+    def characterMoved(self, oldX, oldY, newX, newY):
+        if oldX - newX != 9:
+            self.lastPlayerMoveWasHorizontal = True
+        else:
+            self.lastPlayerMoveWasHorizontal = False
 
     def move(self):
         self.seekOutTarget()
@@ -70,11 +79,15 @@ class Guard(Character):
             if player is not None:
                 self.target = Vector(self.x + x, self.y + y)
 
+                if not self.subscribedToPlayer:
+                    player.subscribe(self)
+                    self.subscribedToPlayer = True
+
     def moveTowardsTarget(self):
-        if self.lastMoveTowardsTargetWasHorizontal:
-            order = verticalThenHorizontal
-        else:
+        if self.lastPlayerMoveWasHorizontal:
             order = horizontalThenVertical
+        else:
+            order = verticalThenHorizontal
         
         moved = False
         
