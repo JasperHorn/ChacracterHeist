@@ -21,6 +21,9 @@ class Guard(Character):
     def getVisibilityPriority(self):
         return 100010
 
+    def isPassable(self, character):
+        return character.isPlayer()
+
     def move(self):
         self.seekOutTarget()
         
