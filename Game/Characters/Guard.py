@@ -5,7 +5,7 @@ import consoleUtils
 
 from .Character import Character
 from Vector import Vector
-from coordinateUtils import filledManhattanCircle
+from coordinateUtils import crossByDistance
 
 class Guard(Character):
     def __init__(self, field, x, y):
@@ -38,9 +38,9 @@ class Guard(Character):
         self.actUp()
 
     def findWallToFollow(self):
-        for (x, y) in filledManhattanCircle(2):
-            if self.followable(Vector(self.x + x, self.y + y)):
-                newDirection = Vector(x, y).unitize().rotateCounterClockwise()
+        for lookAt in crossByDistance(2):
+            if self.followable(Vector(self.x, self.y) + lookAt):
+                newDirection = lookAt.unitize().rotateCounterClockwise()
                 self.patrolDirection = newDirection
                 return
 
